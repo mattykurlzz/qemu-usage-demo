@@ -1,0 +1,12 @@
+[submodule "src/example/native-build/poky"]
+	path = src/example/native-build/poky
+	url = https://github.com/yoctoproject/poky.git
+	branch = scarthgap
+[submodule "src/example/native-build/meta-riscv"]
+	path = src/example/native-build/meta-riscv
+	url = https://github.com/riscv/meta-riscv.git
+	branch = scarthgap
+[submodule "src/example/native-build/meta-openembedded"]
+	path = src/example/native-build/meta-openembedded
+	url = https://github.com/openembedded/meta-openembedded.git
+	branch = scarthgap

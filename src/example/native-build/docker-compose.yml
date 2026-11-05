@@ -1,0 +1,37 @@
+# Docker Compose setup for the Yocto build environment.
+#
+# Usage:
+#   docker compose build          # build the image (uses your host UID/GID)
+#   docker compose run --rm yocto bash   # open a shell inside the container
+#
+# The project sources are bind-mounted at /work. The downloads cache and
+# sstate cache are kept in named volumes so they persist across container
+# runs and are not lost when the container is removed.
+
+services:
+  yocto:
+    build:
+      context: .
+      args:
+        USER_ID: ${UID:-1000}
+        GROUP_ID: ${GID:-1000}
+    image: yocto-mangopi-mq-pro
+    working_dir: /work
+    # Run as the non-root build user created in the Dockerfile.
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - .:/work
+      - downloads:/work/downloads
+      - sstate-cache:/work/sstate-cache
+    # Yocto needs a lot of file descriptors and a large shared memory area.
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    shm_size: "2g"
+    stdin_open: true
+    tty: true
+
+volumes:
+  downloads:
+  sstate-cache:

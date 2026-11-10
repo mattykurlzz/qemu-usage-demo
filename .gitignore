@@ -2,3 +2,4 @@ build/
 downloads/
 sstate-cache/
 confid/
+.kilocode/
